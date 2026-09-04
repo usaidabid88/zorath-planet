@@ -112,27 +112,27 @@ export default function Hero({ onOpenBooking }) {
       {/* Content Container */}
       <div
         ref={contentRef}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-16 flex flex-col justify-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 md:px-16 flex flex-col justify-center"
       >
         <div className="max-w-3xl">
           {/* Top Classification Badge */}
-          <div className="hero-badge flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono tracking-widest uppercase bg-void-900/80 border border-plasma/40 text-ghost shadow-lg backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-ember animate-pulse shadow-[0_0_8px_#FF5722]" />
+          <div className="hero-badge flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+            <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-widest uppercase bg-void-900/80 border border-plasma/40 text-ghost shadow-lg backdrop-blur-md">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-ember animate-pulse shadow-[0_0_8px_#FF5722]" />
               Ministry of Travel & Tourism
             </span>
-            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider text-cyanGlow bg-cyanGlow/10 border border-cyanGlow/30 px-3 py-1 rounded-full backdrop-blur-md">
-              <Radio className="w-3.5 h-3.5 text-cyanGlow animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono tracking-wider text-cyanGlow bg-cyanGlow/10 border border-cyanGlow/30 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md">
+              <Radio className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyanGlow animate-pulse" />
               SECTOR 07 • EXPEDITIONS OPEN
             </span>
           </div>
 
           {/* Heading - Dual Typography System */}
           <div className="mb-3 sm:mb-4">
-            <h1 className="hero-title-sans font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
+            <h1 className="hero-title-sans font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
               Planetary frontier beyond
             </h1>
-            <div className="hero-title-drama font-drama italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.05] pt-1 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)]">
+            <div className="hero-title-drama font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.08] pt-0.5 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)]">
               Extraterrestrial wonder.
             </div>
           </div>
@@ -143,13 +143,13 @@ export default function Hero({ onOpenBooking }) {
           </p>
 
           {/* Action CTAs */}
-          <div className="hero-actions flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="hero-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-auto">
             <button
               onClick={onOpenBooking}
-              className="btn-magnetic bg-ember hover:bg-ember-600 text-white font-semibold px-6 sm:px-7 py-2.5 sm:py-3 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] hover:shadow-[0_0_40px_rgba(255,87,34,0.7)] flex items-center gap-2 group transition-all text-xs sm:text-sm"
+              className="btn-magnetic bg-ember hover:bg-ember-600 text-white font-semibold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] hover:shadow-[0_0_40px_rgba(255,87,34,0.7)] flex items-center justify-center gap-2 group transition-all text-xs sm:text-sm w-full sm:w-auto"
             >
               <span className="btn-slide-layer bg-gradient-to-r from-plasma to-ember"></span>
-              <span className="btn-content flex items-center gap-2">
+              <span className="btn-content flex items-center justify-center gap-2">
                 <span>Book an Expedition</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
@@ -157,7 +157,7 @@ export default function Hero({ onOpenBooking }) {
 
             <a
               href="#archives"
-              className="btn-magnetic glass-panel text-ghost hover:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/15 hover:border-plasma/50 flex items-center gap-2 font-medium text-xs sm:text-sm hover-lift backdrop-blur-xl transition-all"
+              className="btn-magnetic glass-panel text-ghost hover:text-white px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-white/15 hover:border-plasma/50 flex items-center justify-center gap-2 font-medium text-xs sm:text-sm hover-lift backdrop-blur-xl transition-all w-full sm:w-auto text-center"
             >
               <Orbit className="w-4 h-4 text-cyanGlow" />
               <span>Explore Planetary Radar</span>
@@ -166,22 +166,20 @@ export default function Hero({ onOpenBooking }) {
         </div>
 
         {/* Live Telemetry Bar */}
-        <div className="hero-telemetry mt-6 sm:mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-void-300">
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <div className="flex items-center gap-2">
-              <span className="text-plasma">COORD:</span>
-              <span className="text-white font-semibold">44.91°N 128.4°E</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-plasma">GRAVITY:</span>
-              <span className="text-white font-semibold">0.88G</span>
-            </div>
-            <div className="hidden sm:flex items-center gap-2">
-              <span className="text-plasma">ATMOSPHERE:</span>
-              <span className="text-white font-semibold">O₂ 24% • Xe 4% • N₂ 72%</span>
-            </div>
+        <div className="hero-telemetry mt-6 sm:mt-8 pt-4 border-t border-white/10 grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-between gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-void-300">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-plasma font-bold">COORD:</span>
+            <span className="text-white font-semibold">44.91°N 128.4°E</span>
           </div>
-          <div className="flex items-center gap-2 text-cyanGlow">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-plasma font-bold">GRAVITY:</span>
+            <span className="text-white font-semibold">0.88G</span>
+          </div>
+          <div className="col-span-2 sm:col-span-1 flex items-center gap-1.5 sm:gap-2">
+            <span className="text-plasma font-bold">ATMOSPHERE:</span>
+            <span className="text-white font-semibold">O₂ 24% • Xe 4% • N₂ 72%</span>
+          </div>
+          <div className="col-span-2 sm:col-span-1 flex items-center gap-2 text-cyanGlow">
             <span className="w-1.5 h-1.5 rounded-full bg-cyanGlow animate-ping" />
             <span>ORBITAL RECEPTOR SYNCHRONIZED</span>
           </div>

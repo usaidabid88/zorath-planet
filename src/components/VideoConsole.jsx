@@ -121,30 +121,30 @@ export default function VideoConsole() {
     <section
       id="archives"
       ref={sectionRef}
-      className="relative py-28 px-6 sm:px-10 md:px-16 bg-void-900 border-t border-white/10"
+      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-900 border-t border-white/10"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4 sm:gap-6">
           <div>
-            <span className="font-mono text-xs tracking-widest text-cyanGlow uppercase bg-cyanGlow/10 border border-cyanGlow/30 px-3.5 py-1 rounded-full flex items-center gap-1.5 w-fit mb-3">
+            <span className="font-mono text-[10px] sm:text-xs tracking-widest text-cyanGlow uppercase bg-cyanGlow/10 border border-cyanGlow/30 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit mb-2.5 sm:mb-3">
               <Radio className="w-3.5 h-3.5 text-cyanGlow animate-pulse" />
               Live Interstellar Feed Console
             </span>
-            <h2 className="font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight">
+            <h2 className="font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl text-white tracking-tight">
               Planetary Surveillance Archives
             </h2>
           </div>
-          <p className="text-void-300 text-sm max-w-md font-light">
+          <p className="text-void-300 text-xs sm:text-sm max-w-md font-light">
             Switch across 5 dedicated orbital camera channels capturing real footage of Zorath's geology, biology, and atmospheric anomalies.
           </p>
         </div>
 
         {/* Video Player & Channel Selector Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Main Video Viewport (8 Columns) */}
           <div className="lg:col-span-8 flex flex-col gap-4">
-            <div className="relative w-full aspect-video rounded-3rem overflow-hidden bg-void-950 border border-plasma/40 shadow-2xl shadow-void-950 group video-player-box">
+            <div className="relative w-full aspect-video rounded-2xl sm:rounded-3rem overflow-hidden bg-void-950 border border-plasma/40 shadow-2xl shadow-void-950 group video-player-box">
               {/* Video Element */}
               <video
                 ref={videoRef}
@@ -160,11 +160,11 @@ export default function VideoConsole() {
               </video>
 
               {/* Sci-Fi HUD Overlay */}
-              <div className="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50">
+              <div className="absolute inset-0 pointer-events-none p-3.5 sm:p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50">
                 {/* Top HUD Stats */}
-                <div className="flex items-center justify-between font-mono text-[11px] text-white">
-                  <div className="flex items-center gap-2 bg-void-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 shadow-md">
-                    <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                <div className="flex items-center justify-between font-mono text-[9px] sm:text-[11px] text-white">
+                  <div className="flex items-center gap-1.5 sm:gap-2 bg-void-900/80 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15 shadow-md">
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-ping" />
                     <span className="font-bold text-ember">{selectedChannel.channel}</span>
                     <span className="text-void-400">|</span>
                     <span>{selectedChannel.category}</span>
@@ -177,73 +177,75 @@ export default function VideoConsole() {
 
                 {/* Bottom HUD Info */}
                 <div>
-                  <h3 className="font-sans font-bold text-lg sm:text-xl text-white mb-1 drop-shadow-md">
+                  <h3 className="font-sans font-bold text-sm sm:text-lg md:text-xl text-white mb-0.5 sm:mb-1 drop-shadow-md">
                     {selectedChannel.title}
                   </h3>
-                  <p className="text-xs text-void-200 font-light max-w-xl line-clamp-1 drop-shadow">
+                  <p className="text-[11px] sm:text-xs text-void-200 font-light max-w-xl line-clamp-1 drop-shadow">
                     {selectedChannel.description}
                   </p>
                 </div>
               </div>
 
               {/* Video Control Bar */}
-              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2 bg-void-950/85 backdrop-blur-md border border-white/20 p-1.5 rounded-full shadow-lg">
+              <div className="absolute bottom-2.5 right-2.5 sm:bottom-4 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2 bg-void-950/85 backdrop-blur-md border border-white/20 p-1 sm:p-1.5 rounded-full shadow-lg">
                 <button
                   onClick={togglePlay}
-                  className="p-2 text-white hover:text-ember rounded-full hover:bg-white/10 transition-colors"
+                  className="p-1.5 sm:p-2 text-white hover:text-ember rounded-full hover:bg-white/10 transition-colors"
                   aria-label="Play/Pause"
                 >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  {isPlaying ? <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                 </button>
                 <button
                   onClick={toggleMute}
-                  className="p-2 text-white hover:text-cyanGlow rounded-full hover:bg-white/10 transition-colors"
+                  className="p-1.5 sm:p-2 text-white hover:text-cyanGlow rounded-full hover:bg-white/10 transition-colors"
                   aria-label="Mute/Unmute"
                 >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                  {isMuted ? <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Channel Selector Sidebar (4 Columns) */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            <span className="font-mono text-xs text-void-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+          {/* Channel Selector Sidebar (4 Columns on desktop, horizontal swiper on mobile) */}
+          <div className="lg:col-span-4 flex flex-col gap-2.5 sm:gap-3 w-full">
+            <span className="font-mono text-[10px] sm:text-xs text-void-300 uppercase tracking-wider mb-0.5 flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-plasma" />
               Select Orbital Relay Feed:
             </span>
-            {videoChannels.map((ch) => {
-              const isCurrent = selectedChannel.id === ch.id;
-              return (
-                <button
-                  key={ch.id}
-                  onClick={() => handleChannelSwitch(ch)}
-                  className={`w-full p-4 rounded-2rem text-left transition-all duration-300 border flex items-center gap-4 interactive-card ${
-                    isCurrent
-                      ? 'bg-void-800 border-ember shadow-lg shadow-ember/20 scale-[1.02]'
-                      : 'bg-void-950/60 border-white/5 hover:border-white/25 hover:bg-void-800/60'
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-mono text-xs font-bold shrink-0 transition-transform ${
+            <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 gap-2.5 sm:gap-3 snap-x">
+              {videoChannels.map((ch) => {
+                const isCurrent = selectedChannel.id === ch.id;
+                return (
+                  <button
+                    key={ch.id}
+                    onClick={() => handleChannelSwitch(ch)}
+                    className={`min-w-[240px] lg:min-w-0 w-auto lg:w-full p-3 sm:p-4 rounded-xl sm:rounded-2rem text-left transition-all duration-300 border flex items-center gap-3 sm:gap-4 interactive-card snap-start shrink-0 lg:shrink ${
                       isCurrent
-                        ? 'bg-ember text-white shadow-[0_0_12px_#FF5722] scale-105'
-                        : 'bg-void-800 text-void-300'
+                        ? 'bg-void-800 border-ember shadow-lg shadow-ember/20 scale-[1.01]'
+                        : 'bg-void-950/60 border-white/5 hover:border-white/25 hover:bg-void-800/60'
                     }`}
                   >
-                    {ch.channel}
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-mono text-plasma font-semibold tracking-wider">
-                      {ch.category}
-                    </span>
-                    <span className="text-sm font-sans font-bold text-white truncate">
-                      {ch.title}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
+                    <div
+                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-mono text-[11px] sm:text-xs font-bold shrink-0 transition-transform ${
+                        isCurrent
+                          ? 'bg-ember text-white shadow-[0_0_12px_#FF5722] scale-105'
+                          : 'bg-void-800 text-void-300'
+                      }`}
+                    >
+                      {ch.channel}
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-[10px] sm:text-xs font-mono text-plasma font-semibold tracking-wider">
+                        {ch.category}
+                      </span>
+                      <span className="text-xs sm:text-sm font-sans font-bold text-white truncate">
+                        {ch.title}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

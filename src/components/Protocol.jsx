@@ -209,49 +209,49 @@ export default function Protocol() {
     <section
       id="protocol"
       ref={containerRef}
-      className="relative py-28 px-6 sm:px-10 md:px-16 bg-void-950"
+      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-950"
     >
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="font-mono text-xs tracking-widest text-plasma uppercase bg-plasma/10 border border-plasma/30 px-3 py-1 rounded-full">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-20">
+          <span className="font-mono text-[10px] sm:text-xs tracking-widest text-plasma uppercase bg-plasma/10 border border-plasma/30 px-3 py-1 rounded-full">
             Sticky Stacking Archive
           </span>
-          <h2 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl text-white mt-4 tracking-tight">
+          <h2 className="font-sans font-bold text-2xl sm:text-4xl md:text-5xl text-white mt-3 sm:mt-4 tracking-tight">
             Interstellar Expedition Protocol
           </h2>
-          <p className="text-void-300 text-sm sm:text-base mt-3 font-light">
+          <p className="text-void-300 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 font-light">
             A three-phase scientific flight pathway engineered to guide explorers from outer orbital insertion down to planetary soil.
           </p>
         </div>
 
         {/* Stacking Cards Container */}
-        <div className="flex flex-col gap-12 sm:gap-16">
+        <div className="flex flex-col gap-8 sm:gap-12 md:gap-16">
           {protocolSteps.map((step, idx) => (
             <div
               key={step.step}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`sticky top-24 sm:top-28 rounded-3rem p-6 sm:p-10 md:p-12 border ${step.theme} backdrop-blur-2xl shadow-2xl transition-all duration-300`}
+              className={`sticky top-16 sm:top-24 md:top-28 rounded-2xl sm:rounded-3rem p-4 sm:p-8 md:p-12 border ${step.theme} backdrop-blur-2xl shadow-2xl transition-all duration-300`}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 {/* Text Description */}
                 <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="font-mono text-2xl sm:text-3xl font-bold text-ember">
+                  <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+                    <span className="font-mono text-xl sm:text-2xl md:text-3xl font-bold text-ember">
                       {step.step}
                     </span>
-                    <span className="font-mono text-[11px] tracking-widest uppercase bg-white/10 border border-white/15 px-2.5 py-0.5 rounded-full text-ghost">
+                    <span className="font-mono text-[10px] sm:text-[11px] tracking-widest uppercase bg-white/10 border border-white/15 px-2 sm:px-2.5 py-0.5 rounded-full text-ghost">
                       {step.tag}
                     </span>
                   </div>
-                  <h3 className="font-sans font-bold text-2xl sm:text-3xl text-white mb-4 leading-snug">
+                  <h3 className="font-sans font-bold text-lg sm:text-2xl md:text-3xl text-white mb-3 sm:mb-4 leading-snug">
                     {step.title}
                   </h3>
-                  <p className="text-void-200 text-sm sm:text-base font-light leading-relaxed mb-6">
+                  <p className="text-void-200 text-xs sm:text-sm md:text-base font-light leading-relaxed mb-4 sm:mb-6">
                     {step.description}
                   </p>
-                  <div className="flex items-center gap-2 text-xs font-mono text-cyanGlow">
-                    <ShieldCheck className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-cyanGlow">
+                    <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     <span>MINISTRY STANDARD OPERATING REGULATION</span>
                   </div>
                 </div>
