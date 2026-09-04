@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zorath - Explore the Wonders</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and HTML */
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background Styles */
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Make sure the video stays behind the content */
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent header */
+            z-index: 1; /* Keep header content behind the logo */
+        }
+
+        /* Logo and Website Name Styling (in front of header) */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: absolute; /* Positioned in front of the header */
+            top: 20px;
+            left: 20px;
+            z-index: 10; /* Ensure it appears in front */
+            transition: transform 0.3s ease; /* Smooth transition for logo and name size */
+        }
+
+        .logo-container img {
+            height: 80px;
+            transition: transform 0.3s ease; /* Smooth transition for logo scaling */
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.1); /* Increase logo size on hover */
+        }
+
+        .logo-container .site-name {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: font-size 0.3s ease, letter-spacing 0.3s ease; /* Added letter-spacing transition */
+        }
+
+        .logo-container:hover .site-name,
+        .logo-container:hover img {
+            font-size: 40px; /* Increase text size on hover */
+            transform: scale(1.1); /* Slight increase in logo size */
+            letter-spacing: 5px; /* Increase letter spacing on hover */
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 10px 0;
+            z-index: 2;
+            display: flex;
+            justify-content: flex-end; /* Align tabs to the right */
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end; /* Align tabs to the right */
+            padding-right: 20px; /* Space between the tabs and right edge */
+        }
+
+        nav ul li {
+            list-style-type: none;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 16px;
+            display: block;
+            transition: background 0.3s, font-size 0.3s; /* Added font-size transition */
+        }
+
+        /* Hover effect for the navigation links */
+        nav ul li a:hover {
+            background-color: red; /* Change background color to red */
+            font-size: 20px; /* Slightly increase font size */
+        }
+
+        /* Main Content Styles */
+        .content {
+            text-align: left; /* Align text to the left */
+            color: white;
+            padding: 180px 20px 50px; /* Increased padding-bottom for more space */
+            position: relative; /* Ensures video can be placed above the footer */
+            max-width: 800px;
+            margin: 0 auto; /* Center the content */
+        }
+
+        .content h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .content .video-container {
+            display: block;
+            margin-top: 40px; /* Increased margin-top to add more space between text and video */
+            text-align: center; /* Center the video */
+        }
+
+        /* Increased video size to 80% of the container */
+        .content video {
+            width: 80%; /* Set video width to 80% of the container */
+            height: auto; /* Automatically adjust height based on the width */
+            border-radius: 10px; /* Adding rounded corners */
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
+            color: white;
+            padding: 30px 20px; /* Reduced padding for a smaller footer */
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            border-top: 3px solid #ff6600;
+            box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 18px; /* Reduced font size */
+            margin: 10px 0;
+        }
+
+        .contact-link {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 16px; /* Reduced font size */
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links .social-icon {
+            font-size: 24px;
+            margin: 0 15px;
+            color: #ff6600;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid #ff6600;
+            transition: all 0.3s;
+        }
+
+        .social-links .social-icon:hover {
+            color: white;
+            background-color: #ff6600;
+            transform: scale(1.1);
+        }
+
+        /* Hover effects for Social Media Links */
+        .fb:hover { background-color: #3b5998; }
+        .tw:hover { background-color: #00aced; }
+        .ig:hover { background-color: #e1306c; }
+    </style>
+</head>
+<body>
+
+    <!-- Background Video (e.mp4) -->
+    <video autoplay loop muted class="background-video">
+        <source src="e.mp4" type="video/mp4">
+        <source src="e.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Logo and Website Name in Front of the Header -->
+    <div class="logo-container">
+        <img src="logo.png" alt="Zorath Logo">
+        <div class="site-name">Zorath</div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <!-- Navigation Bar (Tabs on the right) -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="geo.html">Geological Features</a></li>
+                <li><a href="eco.html">Eco-System</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="tour.html">Tourism</a></li>
+		<li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content (Home Page) -->
+    <div class="content">
+        <h1>About Us</h1>
+        <p>Welcome to Zorath, an imaginary planet, launched by the Ministry of Travel and Tourism. A unique and imaginative world that we're excited to share with you. This platform is designed to showcase the wonders of Zorath through the lens of the Ministry of Travel and Tourism.</p>
+        <p>Created by Hasnain Afzal and Usaid Abid, our website is your gateway to exploring the wonders of Zorath. We’re passionate about offering you an unforgettable travel experience, filled with adventure and discovery.</p>
+        <p>For inquiries, contact us at:</p>
+        <ul>
+            <li>Hasnain Afzal: 03201218373</li>
+            <li>Usaid Abid: 03226872171</li>
+        </ul>
+        <p>Join us and explore the magic of Zorath!</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+	<p><h3>Cadet  College  Sanghar</h3><p>
+            <div class="contact-info">
+                <p>Contact us: <a href="tel:+92 090078601" class="contact-link">+92 2355480014</a></p>
+                <p>Email us: <a href="mailto:ccsanghar@gmail.com" class="contact-link">ccsanghar@gmail.com</a></p>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Zorath. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

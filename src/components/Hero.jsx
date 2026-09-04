@@ -1,0 +1,192 @@
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ArrowRight, Radio, Orbit, ShieldCheck, Sparkles, Compass } from 'lucide-react';
+
+export default function Hero({ onOpenBooking }) {
+  const heroRef = useRef(null);
+  const contentRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    // GSAP entrance animations
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.fromTo(
+        '.hero-badge',
+        { y: 25, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, delay: 0.1 }
+      )
+      .fromTo(
+        '.hero-title-sans',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        '-=0.4'
+      )
+      .fromTo(
+        '.hero-title-drama',
+        { y: 35, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out' },
+        '-=0.5'
+      )
+      .fromTo(
+        '.hero-description',
+        { y: 25, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        '-=0.6'
+      )
+      .fromTo(
+        '.hero-actions',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        '-=0.5'
+      )
+      .fromTo(
+        '.hero-telemetry',
+        { opacity: 0, x: 20 },
+        { opacity: 1, x: 0, duration: 0.7 },
+        '-=0.4'
+      );
+    }, heroRef);
+
+    // Scroll-aware performance optimization: Only play video when in viewport
+    const currentVideo = videoRef.current;
+    if (currentVideo && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              currentVideo.play().catch(() => {});
+            } else {
+              currentVideo.pause();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(heroRef.current);
+
+      return () => {
+        observer.disconnect();
+        ctx.revert();
+      };
+    }
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={heroRef}
+      className="relative w-full min-h-[100dvh] pt-20 sm:pt-24 pb-6 sm:pb-8 overflow-hidden flex flex-col justify-center bg-void"
+    >
+      {/* Background Video & Fallback Image with Smooth Vignette */}
+      <div className="absolute inset-0 z-0">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/m.jpg"
+          className="w-full h-full object-cover scale-105 filter brightness-[0.75] contrast-[1.12]"
+        >
+          <source src="/home.mp4" type="video/mp4" />
+        </video>
+
+        {/* Ambient Dark Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07080F] via-[#07080F]/45 to-[#07080F]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#07080F] via-[#07080F]/55 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#07080F_85%)] opacity-80" />
+      </div>
+
+      {/* Decorative Sci-Fi Orbit Rings */}
+      <div className="absolute top-1/3 right-8 md:right-20 z-0 pointer-events-none opacity-25 hidden lg:block">
+        <div className="relative w-72 h-72 rounded-full border border-plasma/40 animate-[spin_60s_linear_infinite]">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-ember rounded-full shadow-[0_0_15px_#FF5722]" />
+          <div className="absolute inset-6 rounded-full border border-cyanGlow/40 animate-[spin_40s_linear_infinite_reverse]" />
+          <div className="absolute inset-16 rounded-full border border-dashed border-white/20" />
+        </div>
+      </div>
+
+      {/* Content Container */}
+      <div
+        ref={contentRef}
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-16 flex flex-col justify-center"
+      >
+        <div className="max-w-3xl">
+          {/* Top Classification Badge */}
+          <div className="hero-badge flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono tracking-widest uppercase bg-void-900/80 border border-plasma/40 text-ghost shadow-lg backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-ember animate-pulse shadow-[0_0_8px_#FF5722]" />
+              Ministry of Travel & Tourism
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider text-cyanGlow bg-cyanGlow/10 border border-cyanGlow/30 px-3 py-1 rounded-full backdrop-blur-md">
+              <Radio className="w-3.5 h-3.5 text-cyanGlow animate-pulse" />
+              SECTOR 07 • EXPEDITIONS OPEN
+            </span>
+          </div>
+
+          {/* Heading - Dual Typography System */}
+          <div className="mb-3 sm:mb-4">
+            <h1 className="hero-title-sans font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
+              Planetary frontier beyond
+            </h1>
+            <div className="hero-title-drama font-drama italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.05] pt-1 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)]">
+              Extraterrestrial wonder.
+            </div>
+          </div>
+
+          {/* Subtitle Description */}
+          <p className="hero-description text-xs sm:text-sm md:text-base text-void-100/90 font-light leading-relaxed max-w-2xl mb-5 sm:mb-6">
+            Experience the untamed majesty of Zorath — an alien sanctuary of crystalline canyons, glowing primeval ecosystems, and thunderous plasma tempests engineered for the ultimate frontier expedition.
+          </p>
+
+          {/* Action CTAs */}
+          <div className="hero-actions flex flex-wrap items-center gap-3 sm:gap-4">
+            <button
+              onClick={onOpenBooking}
+              className="btn-magnetic bg-ember hover:bg-ember-600 text-white font-semibold px-6 sm:px-7 py-2.5 sm:py-3 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] hover:shadow-[0_0_40px_rgba(255,87,34,0.7)] flex items-center gap-2 group transition-all text-xs sm:text-sm"
+            >
+              <span className="btn-slide-layer bg-gradient-to-r from-plasma to-ember"></span>
+              <span className="btn-content flex items-center gap-2">
+                <span>Book an Expedition</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </button>
+
+            <a
+              href="#archives"
+              className="btn-magnetic glass-panel text-ghost hover:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/15 hover:border-plasma/50 flex items-center gap-2 font-medium text-xs sm:text-sm hover-lift backdrop-blur-xl transition-all"
+            >
+              <Orbit className="w-4 h-4 text-cyanGlow" />
+              <span>Explore Planetary Radar</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Live Telemetry Bar */}
+        <div className="hero-telemetry mt-6 sm:mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-void-300">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-2">
+              <span className="text-plasma">COORD:</span>
+              <span className="text-white font-semibold">44.91°N 128.4°E</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-plasma">GRAVITY:</span>
+              <span className="text-white font-semibold">0.88G</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-2">
+              <span className="text-plasma">ATMOSPHERE:</span>
+              <span className="text-white font-semibold">O₂ 24% • Xe 4% • N₂ 72%</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 text-cyanGlow">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyanGlow animate-ping" />
+            <span>ORBITAL RECEPTOR SYNCHRONIZED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

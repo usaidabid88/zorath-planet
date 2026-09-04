@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zorath - Explore the Wonders</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and HTML */
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background Video */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover; /* Ensure the video covers the entire background */
+        }
+
+        /* Background Images */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('e.jpg'), url('f.jpg'), url('g.jpg'), url('h.jpg'), url('i.jpg'), url('j.jpg'), url('k.jpg');
+            background-size: cover;
+            background-position: 0 0, 100% 0, 200% 0, 300% 0, 400% 0, 500% 0, 600% 0;
+            animation: moveBackground 60s linear infinite;
+        }
+
+        /* Background Movement Animation */
+        @keyframes moveBackground {
+            0% { 
+                background-position: 0 0, 100% 0, 200% 0, 300% 0, 400% 0, 500% 0, 600% 0;
+            }
+            100% {
+                background-position: -100% 0, 0 0, 100% 0, 200% 0, 300% 0, 400% 0, 500% 0;
+            }
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Logo and Website Name Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img {
+            height: 80px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-container .site-name {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: font-size 0.3s ease, letter-spacing 0.3s ease;
+        }
+
+        .logo-container:hover .site-name,
+        .logo-container:hover img {
+            font-size: 40px;
+            transform: scale(1.1);
+            letter-spacing: 5px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 10px 0;
+            z-index: 2;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        nav ul li {
+            list-style-type: none;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 16px;
+            display: block;
+            transition: background 0.3s, font-size 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: red;
+            font-size: 20px;
+        }
+
+        /* Main Content Styles */
+        .content {
+            text-align: left;
+            color: white;
+            padding: 180px 20px 50px;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .content .video-container {
+            display: block;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .content video {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            border-top: 3px solid #ff6600;
+            box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .contact-link {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links .social-icon {
+            font-size: 24px;
+            margin: 0 15px;
+            color: #ff6600;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid #ff6600;
+            transition: all 0.3s;
+        }
+
+        .social-links .social-icon:hover {
+            color: white;
+            background-color: #ff6600;
+            transform: scale(1.1);
+        }
+
+        .fb:hover { background-color: #3b5998; }
+        .tw:hover { background-color: #00aced; }
+        .ig:hover { background-color: #e1306c; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video class="background-video" autoplay loop muted>
+        <source src="a.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Background Animation (Images) -->
+    <div class="background"></div>
+
+    <!-- Logo and Website Name in Front of the Header -->
+    <div class="logo-container">
+        <img src="logo.png" alt="Zorath Logo">
+        <div class="site-name">Zorath</div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="geo.html">Geological Features</a></li>
+                <li><a href="#">Eco-System</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="tour.html">Tourism</a></li>
+		<li><a href="us.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content (Home Page) -->
+    <div class="content">
+        <h1>Zorath's Diverse Ecosystem </h1>
+        <p>Zorath's ecosystem is a thriving world of diverse life forms. From dinosaurs roaming the vast landscapes to ancient animals and rich marine life in its waters, the planet is home to creatures from both the past and present, creating a dynamic and balanced environment.</p>
+
+        <!-- Video Example -->
+        <div class="video-container">
+            <video controls>
+                <source src="eco.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+ <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+	<p><h3>Cadet  College  Sanghar</h3><p>
+            <div class="contact-info">
+                <p>Contact us: <a href="tel:+92 090078601" class="contact-link">+92 2355480014</a></p>
+                <p>Email us: <a href="mailto:ccsanghar@gmail.com" class="contact-link">ccsanghar@gmail.com</a></p>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Zorath. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
