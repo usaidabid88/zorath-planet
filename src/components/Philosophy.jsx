@@ -79,16 +79,19 @@ export default function Philosophy() {
 
         {/* Statement 2: Differentiated Vision with unified, luxurious typography */}
         <div className="mt-2 pt-6 sm:pt-8 border-t border-white/10">
-          <h2 className="font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.18] sm:leading-[1.12] tracking-tight">
+          <h2 className="font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.2] sm:leading-[1.12] tracking-tight">
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">We</span>
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">focus</span>
             <span className="reveal-word inline-block mr-2 sm:mr-3 text-white">on:</span>
 
-            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 drop-shadow-[0_2px_20px_rgba(255,87,34,0.35)]">
-              <span className="reveal-word inline-block mr-1.5 sm:mr-2 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">raw</span>
-              <span className="reveal-word inline-block mr-1.5 sm:mr-2 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">planetary</span>
-              <span className="reveal-word inline-block mr-2 sm:mr-3 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">exploration,</span>
-            </span>
+            {['raw', 'planetary', 'exploration,'].map((word, i) => (
+              <span
+                key={i}
+                className="reveal-word inline-block mr-1.5 sm:mr-2.5 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 filter drop-shadow-[0_2px_15px_rgba(255,87,34,0.35)]"
+              >
+                {word}
+              </span>
+            ))}
 
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">stepping</span>
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">onto</span>
@@ -97,12 +100,14 @@ export default function Philosophy() {
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">and</span>
             <span className="reveal-word inline-block mr-1.5 sm:mr-2 text-white">discovering</span>
 
-            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-plasma-400 via-cyanGlow to-ember-400 drop-shadow-[0_2px_20px_rgba(123,97,255,0.35)]">
-              <span className="reveal-word inline-block mr-1.5 sm:mr-2 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">ecosystems</span>
-              <span className="reveal-word inline-block mr-1.5 sm:mr-2 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">untouched</span>
-              <span className="reveal-word inline-block mr-1.5 sm:mr-2 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">by</span>
-              <span className="reveal-word inline-block font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl">time.</span>
-            </span>
+            {['ecosystems', 'untouched', 'by', 'time.'].map((word, i) => (
+              <span
+                key={i}
+                className="reveal-word inline-block mr-1.5 sm:mr-2.5 font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-plasma-400 via-cyanGlow to-ember-400 filter drop-shadow-[0_2px_15px_rgba(123,97,255,0.35)]"
+              >
+                {word}
+              </span>
+            ))}
           </h2>
         </div>
 

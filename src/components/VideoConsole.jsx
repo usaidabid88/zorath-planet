@@ -160,7 +160,7 @@ export default function VideoConsole() {
               </video>
 
               {/* Sci-Fi HUD Overlay */}
-              <div className="absolute inset-0 pointer-events-none p-3.5 sm:p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50">
+              <div className="absolute inset-0 pointer-events-none p-3 sm:p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50">
                 {/* Top HUD Stats */}
                 <div className="flex items-center justify-between font-mono text-[9px] sm:text-[11px] text-white">
                   <div className="flex items-center gap-1.5 sm:gap-2 bg-void-900/80 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15 shadow-md">
@@ -175,33 +175,35 @@ export default function VideoConsole() {
                   </div>
                 </div>
 
-                {/* Bottom HUD Info */}
-                <div>
-                  <h3 className="font-sans font-bold text-sm sm:text-lg md:text-xl text-white mb-0.5 sm:mb-1 drop-shadow-md">
-                    {selectedChannel.title}
-                  </h3>
-                  <p className="text-[11px] sm:text-xs text-void-200 font-light max-w-xl line-clamp-1 drop-shadow">
-                    {selectedChannel.description}
-                  </p>
-                </div>
-              </div>
+                {/* Bottom HUD Info & Integrated Touch Controls */}
+                <div className="flex items-end justify-between gap-2.5">
+                  <div className="min-w-0 pr-2">
+                    <h3 className="font-sans font-bold text-xs sm:text-lg md:text-xl text-white mb-0.5 sm:mb-1 drop-shadow-md truncate sm:whitespace-normal">
+                      {selectedChannel.title}
+                    </h3>
+                    <p className="text-[10px] sm:text-xs text-void-200 font-light line-clamp-1 drop-shadow hidden sm:block">
+                      {selectedChannel.description}
+                    </p>
+                  </div>
 
-              {/* Video Control Bar */}
-              <div className="absolute bottom-2.5 right-2.5 sm:bottom-4 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2 bg-void-950/85 backdrop-blur-md border border-white/20 p-1 sm:p-1.5 rounded-full shadow-lg">
-                <button
-                  onClick={togglePlay}
-                  className="p-1.5 sm:p-2 text-white hover:text-ember rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="Play/Pause"
-                >
-                  {isPlaying ? <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
-                </button>
-                <button
-                  onClick={toggleMute}
-                  className="p-1.5 sm:p-2 text-white hover:text-cyanGlow rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="Mute/Unmute"
-                >
-                  {isMuted ? <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
-                </button>
+                  {/* Video Control Bar */}
+                  <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 bg-void-950/85 backdrop-blur-md border border-white/20 p-1 sm:p-1.5 rounded-full shadow-lg shrink-0">
+                    <button
+                      onClick={togglePlay}
+                      className="p-1 sm:p-2 text-white hover:text-ember rounded-full hover:bg-white/10 transition-colors"
+                      aria-label="Play/Pause"
+                    >
+                      {isPlaying ? <Pause className="w-3 h-3 sm:w-4 sm:h-4" /> : <Play className="w-3 h-3 sm:w-4 sm:h-4" />}
+                    </button>
+                    <button
+                      onClick={toggleMute}
+                      className="p-1 sm:p-2 text-white hover:text-cyanGlow rounded-full hover:bg-white/10 transition-colors"
+                      aria-label="Mute/Unmute"
+                    >
+                      {isMuted ? <VolumeX className="w-3 h-3 sm:w-4 sm:h-4" /> : <Volume2 className="w-3 h-3 sm:w-4 sm:h-4" />}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -212,7 +214,7 @@ export default function VideoConsole() {
               <Eye className="w-3.5 h-3.5 text-plasma" />
               Select Orbital Relay Feed:
             </span>
-            <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 gap-2.5 sm:gap-3 snap-x">
+            <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 gap-2.5 sm:gap-3 snap-x [-webkit-overflow-scrolling:touch]">
               {videoChannels.map((ch) => {
                 const isCurrent = selectedChannel.id === ch.id;
                 return (

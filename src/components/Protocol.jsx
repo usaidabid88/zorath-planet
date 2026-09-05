@@ -177,6 +177,7 @@ export default function Protocol() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean);
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
       cards.forEach((card, index) => {
         if (index < cards.length - 1) {
@@ -190,9 +191,9 @@ export default function Protocol() {
             onUpdate: (self) => {
               const progress = self.progress;
               gsap.to(card, {
-                scale: 1 - progress * 0.1,
-                opacity: 1 - progress * 0.5,
-                filter: `blur(${progress * 15}px)`,
+                scale: 1 - progress * (isMobile ? 0.04 : 0.1),
+                opacity: 1 - progress * 0.45,
+                ...(isMobile ? {} : { filter: `blur(${progress * 10}px)` }),
                 ease: 'none',
                 duration: 0.1,
               });

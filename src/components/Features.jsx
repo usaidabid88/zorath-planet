@@ -288,18 +288,18 @@ function CursorProtocolScheduler() {
           return (
             <div
               key={item.day}
-              className={`flex flex-col items-center justify-center p-1 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-300 text-center border ${
+              className={`flex flex-col items-center justify-center p-0.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-300 text-center border ${
                 isSelected
                   ? 'bg-ember/25 border-ember shadow-[0_0_15px_rgba(255,87,34,0.4)] scale-105'
                   : 'bg-void-900/60 border-white/5 hover:border-white/20'
               }`}
             >
-              <span className="text-[9px] sm:text-[10px] font-mono font-bold text-void-200">
+              <span className="text-[8px] sm:text-[10px] font-mono font-bold text-void-200">
                 {item.day}
               </span>
-              <span className="text-xs sm:text-sm my-0.5">{item.icon}</span>
+              <span className="text-[11px] sm:text-sm my-0.5">{item.icon}</span>
               <span
-                className={`text-[7px] sm:text-[8px] font-mono leading-tight ${
+                className={`text-[6px] sm:text-[8px] font-mono leading-tight truncate max-w-full block ${
                   isSelected ? 'text-ember-300 font-bold' : 'text-void-400'
                 }`}
               >
@@ -311,13 +311,13 @@ function CursorProtocolScheduler() {
       </div>
 
       {/* Action Footer */}
-      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-2 border-t border-white/10">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-2 border-t border-white/10">
         <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono text-void-300">
           <span className="text-void-400">WINDOW:</span>
           <span className="text-white font-bold">THURSDAY (STABLE)</span>
         </div>
         <button
-          className={`font-mono text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+          className={`font-mono text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 rounded-full transition-all flex items-center justify-center gap-1.5 ${
             activeStep >= 5
               ? 'bg-green-500/20 border border-green-400 text-green-300 shadow-[0_0_15px_rgba(74,222,128,0.3)]'
               : activeStep >= 4

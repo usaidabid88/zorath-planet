@@ -51,7 +51,7 @@ export default function BookingModal({ isOpen, onClose }) {
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3rem bg-void-900/95 border border-plasma/30 shadow-2xl backdrop-blur-xl">
+      <div className="relative w-full max-w-2xl max-h-[90dvh] sm:max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3rem bg-void-900/95 border border-plasma/30 shadow-2xl backdrop-blur-xl">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -108,7 +108,7 @@ export default function BookingModal({ isOpen, onClose }) {
                       onChange={handleChange}
                       required
                       placeholder="Explorer Name"
-                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
+                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
                     />
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function BookingModal({ isOpen, onClose }) {
                       onChange={handleChange}
                       required
                       placeholder="explorer@email.com"
-                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
+                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
                     />
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export default function BookingModal({ isOpen, onClose }) {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+00 000 000 0000"
-                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
+                      className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white placeholder-void-500 text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
                     />
                   </div>
                 </div>
@@ -158,7 +158,7 @@ export default function BookingModal({ isOpen, onClose }) {
                     value={formData.expedition}
                     onChange={handleChange}
                     required
-                    className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 px-3.5 text-white text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all appearance-none cursor-pointer"
+                    className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 px-3.5 text-white text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all appearance-none cursor-pointer"
                   >
                     <option value="recon">Orbital Reconnaissance (4,800 Cr)</option>
                     <option value="pioneer">Planetary Pioneer (14,500 Cr)</option>
@@ -179,7 +179,7 @@ export default function BookingModal({ isOpen, onClose }) {
                     name="preferredDate"
                     value={formData.preferredDate}
                     onChange={handleChange}
-                    className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
+                    className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 pl-9 sm:pl-10 pr-3.5 text-white text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all"
                   />
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function BookingModal({ isOpen, onClose }) {
                   onChange={handleChange}
                   rows={2}
                   placeholder="Dietary requirements, medical accommodations, research objectives..."
-                  className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 px-3.5 text-white placeholder-void-500 text-xs sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all resize-none"
+                  className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 px-3.5 text-white placeholder-void-500 text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all resize-none"
                 />
               </div>
 

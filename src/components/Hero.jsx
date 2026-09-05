@@ -132,7 +132,7 @@ export default function Hero({ onOpenBooking }) {
             <h1 className="hero-title-sans font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
               Planetary frontier beyond
             </h1>
-            <div className="hero-title-drama font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.08] pt-0.5 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)]">
+            <div className="hero-title-drama font-drama italic text-[28px] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.08] pt-0.5 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)] break-words">
               Extraterrestrial wonder.
             </div>
           </div>

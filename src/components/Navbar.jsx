@@ -13,6 +13,18 @@ export default function Navbar({ onOpenBooking }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { name: 'Geology', href: '#geology' },
     { name: 'Ecosystem', href: '#ecosystem' },
@@ -33,7 +45,7 @@ export default function Navbar({ onOpenBooking }) {
               : 'bg-[#07080F]/60 backdrop-blur-xl border border-white/10 text-ghost/90'
           }`}
         >
-          {/* Brand Logo & Identifier in single clean horizontal alignment */}
+          {/* Brand Logo & Identifier */}
           <a
             href="#"
             className="flex items-center gap-2 group focus:outline-none shrink-0"
@@ -101,20 +113,36 @@ export default function Navbar({ onOpenBooking }) {
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Full-Screen Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#07080F]/95 backdrop-blur-2xl flex flex-col justify-center items-center p-8 lg:hidden animate-[fadeIn_0.2s_ease-out]">
-          {/* Top close button */}
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 p-3 rounded-full bg-void-800 border border-white/10 text-white hover:text-ember transition-colors"
-            aria-label="Close Menu"
-          >
-            <X className="w-6 h-6" />
-          </button>
+        <div className="fixed inset-0 z-[100] bg-[#07080F]/98 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-8 lg:hidden animate-[fadeIn_0.2s_ease-out]">
+          {/* Top Header inside overlay */}
+          <div className="flex items-center justify-between w-full pb-4 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full overflow-hidden bg-void-800 border border-plasma/40 flex items-center justify-center p-0.5">
+                <img
+                  src="/logo.png"
+                  alt="Zorath Planetary Crest"
+                  className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(255,87,34,0.6)]"
+                />
+              </div>
+              <span className="font-sans font-bold tracking-wider text-base text-white">ZORATH</span>
+              <span className="text-[9px] font-mono font-medium text-plasma bg-plasma/10 border border-plasma/30 px-1.5 py-0.5 rounded-full">
+                PR-04
+              </span>
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 rounded-full bg-void-800 border border-white/10 text-white hover:text-ember transition-colors"
+              aria-label="Close Menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-          <div className="flex flex-col items-center gap-5 text-center w-full max-w-sm">
-            <span className="font-mono text-xs tracking-widest text-plasma uppercase mb-2 flex items-center gap-1.5">
+          {/* Menu Links */}
+          <div className="flex flex-col items-center gap-3.5 text-center my-auto w-full max-w-sm mx-auto py-4">
+            <span className="font-mono text-[11px] tracking-widest text-plasma uppercase mb-1 flex items-center gap-1.5">
               <Radio className="w-3.5 h-3.5 text-plasma animate-pulse" />
               Interstellar Navigation
             </span>
@@ -123,19 +151,24 @@ export default function Navbar({ onOpenBooking }) {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xl font-bold text-ghost hover:text-ember transition-colors py-1 w-full text-center border-b border-white/5"
+                className="text-lg font-bold text-ghost hover:text-ember active:text-ember transition-colors py-1.5 w-full text-center border-b border-white/5"
               >
                 {link.name}
               </a>
             ))}
+          </div>
+
+          {/* Action Button */}
+          <div className="w-full max-w-sm mx-auto pt-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenBooking();
               }}
-              className="btn-magnetic bg-ember text-white px-8 py-3.5 rounded-full text-sm font-semibold mt-4 shadow-lg shadow-ember/30 w-full"
+              className="btn-magnetic bg-ember text-white py-3.5 rounded-full text-sm font-semibold shadow-lg shadow-ember/30 w-full flex items-center justify-center gap-2"
             >
-              Book an Expedition
+              <span>Book an Expedition</span>
+              <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
         </div>

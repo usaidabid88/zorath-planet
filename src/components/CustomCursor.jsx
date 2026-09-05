@@ -8,8 +8,8 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only enable on fine pointer devices (desktop mouse)
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    // Only enable on fine pointer devices with desktop width
+    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768) {
       return;
     }
 
