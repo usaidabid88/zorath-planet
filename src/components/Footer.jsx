@@ -43,11 +43,16 @@ export default function Footer() {
               Navigation
             </h4>
             <ul className="space-y-2 sm:space-y-3">
-              {['Home Base', 'Geological Survey', 'Ecosystem Data', 'Climate Log', 'Expedition Tiers', 'Archives'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-void-300 hover:text-ember text-xs sm:text-sm transition-colors hover-lift flex items-center gap-1.5">
+              {[
+                { label: 'Manifesto', href: '#philosophy' },
+                { label: 'Scientific Matrix', href: '#terminal' },
+                { label: 'Protocol', href: '#protocol' },
+                { label: 'Expeditions', href: '#expeditions' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-void-300 hover:text-ember text-xs sm:text-sm transition-colors hover-lift flex items-center gap-1.5">
                     <span className="w-1 h-1 rounded-full bg-void-500 group-hover:bg-ember transition-colors" />
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}

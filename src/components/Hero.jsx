@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ArrowRight, Radio, Orbit, ShieldCheck, Sparkles, Compass, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Radio, Orbit, Volume2, VolumeX } from 'lucide-react';
 
 export default function Hero({ onOpenBooking }) {
   const heroRef = useRef(null);
-  const contentRef = useRef(null);
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -21,48 +19,6 @@ export default function Hero({ onOpenBooking }) {
   };
 
   useEffect(() => {
-    // GSAP entrance animations
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.fromTo(
-        '.hero-badge',
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, delay: 0.1 }
-      )
-      .fromTo(
-        '.hero-title-sans',
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
-        '-=0.4'
-      )
-      .fromTo(
-        '.hero-title-drama',
-        { y: 35, opacity: 0, scale: 0.96 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out' },
-        '-=0.5'
-      )
-      .fromTo(
-        '.hero-description',
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        '-=0.6'
-      )
-      .fromTo(
-        '.hero-actions',
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        '-=0.5'
-      )
-      .fromTo(
-        '.hero-telemetry',
-        { opacity: 0, x: 20 },
-        { opacity: 1, x: 0, duration: 0.7 },
-        '-=0.4'
-      );
-    }, heroRef);
-
-    // Scroll-aware performance optimization: Only play video when in viewport
     const currentVideo = videoRef.current;
     if (currentVideo && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
@@ -77,21 +33,17 @@ export default function Hero({ onOpenBooking }) {
         },
         { threshold: 0.15 }
       );
-      observer.observe(heroRef.current);
-
-      return () => {
-        observer.disconnect();
-        ctx.revert();
-      };
+      if (heroRef.current) {
+        observer.observe(heroRef.current);
+      }
+      return () => observer.disconnect();
     }
-
-    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={heroRef}
-      className="relative w-full max-w-full min-h-[100dvh] pt-20 sm:pt-24 pb-6 sm:pb-8 overflow-hidden flex flex-col justify-center bg-void"
+      className="relative w-full max-w-full min-h-[100dvh] pt-24 sm:pt-28 pb-8 sm:pb-12 overflow-hidden flex flex-col justify-center bg-void"
     >
       {/* Background Video & Fallback Image with Smooth Vignette */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -103,16 +55,16 @@ export default function Hero({ onOpenBooking }) {
           playsInline
           preload="metadata"
           poster="/m.jpg"
-          className="w-full h-full object-cover scale-105 filter brightness-[0.75] contrast-[1.12]"
+          className="w-full h-full object-cover scale-105 filter brightness-[0.7] contrast-[1.15]"
         >
           <source src="/home.mp4" type="video/mp4" />
           <source src="/e.mp4" type="video/mp4" />
         </video>
 
         {/* Ambient Dark Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07080F] via-[#07080F]/45 to-[#07080F]/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07080F] via-[#07080F]/55 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#07080F_85%)] opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07080F] via-[#07080F]/50 to-[#07080F]/65" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#07080F]/90 via-[#07080F]/50 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#07080F_85%)] opacity-85" />
       </div>
 
       {/* Decorative Sci-Fi Orbit Rings */}
@@ -125,14 +77,11 @@ export default function Hero({ onOpenBooking }) {
       </div>
 
       {/* Content Container */}
-      <div
-        ref={contentRef}
-        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 md:px-16 flex flex-col justify-center"
-      >
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 md:px-16 flex flex-col justify-center">
         <div className="max-w-3xl">
           {/* Top Classification Badge */}
-          <div className="hero-badge flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-            <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-widest uppercase bg-void-900/80 border border-plasma/40 text-ghost shadow-lg backdrop-blur-md">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+            <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-widest uppercase bg-void-900/90 border border-plasma/40 text-ghost shadow-lg backdrop-blur-md">
               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-ember animate-pulse shadow-[0_0_8px_#FF5722]" />
               Ministry of Travel & Tourism
             </span>
@@ -143,25 +92,25 @@ export default function Hero({ onOpenBooking }) {
           </div>
 
           {/* Heading - Dual Typography System */}
-          <div className="mb-3 sm:mb-4">
-            <h1 className="hero-title-sans font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
+          <div className="mb-4 sm:mb-5">
+            <h1 className="font-sans font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-white leading-[1.08] drop-shadow-md">
               Planetary frontier beyond
             </h1>
-            <div className="hero-title-drama font-drama italic text-[28px] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.08] pt-0.5 pb-1 tracking-wide filter drop-shadow-[0_4px_25px_rgba(255,87,34,0.35)] break-words">
+            <div className="font-drama italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-ember-400 via-orange-300 to-plasma-400 leading-[1.08] pt-1 pb-1 tracking-wide filter drop-shadow-[0_4px_30px_rgba(255,87,34,0.45)] break-words">
               Extraterrestrial wonder.
             </div>
           </div>
 
           {/* Subtitle Description */}
-          <p className="hero-description text-xs sm:text-sm md:text-base text-void-100/90 font-light leading-relaxed max-w-2xl mb-5 sm:mb-6">
+          <p className="text-sm sm:text-base md:text-lg text-void-100/90 font-light leading-relaxed max-w-2xl mb-6 sm:mb-8">
             Experience the untamed majesty of Zorath — an alien sanctuary of crystalline canyons, glowing primeval ecosystems, and thunderous plasma tempests engineered for the ultimate frontier expedition.
           </p>
 
           {/* Action CTAs */}
-          <div className="hero-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <button
               onClick={onOpenBooking}
-              className="btn-magnetic bg-ember hover:bg-ember-600 text-white font-semibold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] hover:shadow-[0_0_40px_rgba(255,87,34,0.7)] flex items-center justify-center gap-2 group transition-all text-xs sm:text-sm w-full sm:w-auto"
+              className="btn-magnetic bg-ember hover:bg-ember-600 text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] hover:shadow-[0_0_40px_rgba(255,87,34,0.7)] flex items-center justify-center gap-2 group transition-all text-xs sm:text-sm w-full sm:w-auto"
             >
               <span className="btn-slide-layer bg-gradient-to-r from-plasma to-ember"></span>
               <span className="btn-content flex items-center justify-center gap-2">
@@ -171,48 +120,51 @@ export default function Hero({ onOpenBooking }) {
             </button>
 
             <a
-              href="#archives"
-              className="btn-magnetic glass-panel text-ghost hover:text-white px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-white/15 hover:border-plasma/50 flex items-center justify-center gap-2 font-medium text-xs sm:text-sm hover-lift backdrop-blur-xl transition-all w-full sm:w-auto text-center"
+              href="#terminal"
+              className="btn-magnetic glass-panel text-ghost hover:text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-full border border-white/15 hover:border-plasma/50 flex items-center justify-center gap-2 font-medium text-xs sm:text-sm hover-lift backdrop-blur-xl transition-all w-full sm:w-auto text-center"
             >
               <Orbit className="w-4 h-4 text-cyanGlow" />
-              <span>Explore Planetary Radar</span>
+              <span>Explore Scientific Matrix</span>
             </a>
           </div>
         </div>
 
-        {/* Live Telemetry Bar */}
-        <div className="hero-telemetry mt-6 sm:mt-8 pt-4 border-t border-white/10 grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-between gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-void-300">
-          <div className="flex items-center gap-1.5 sm:gap-2">
+        {/* Live Sci-Fi Telemetry HUD Bar */}
+        <div className="mt-8 sm:mt-12 p-3.5 sm:p-4 rounded-2xl bg-void-950/80 border border-white/10 backdrop-blur-xl grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-between gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-void-300 shadow-2xl">
+          <div className="flex items-center gap-1.5 sm:gap-2 bg-void-900/80 px-2.5 py-1 rounded-lg border border-white/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyanGlow animate-pulse" />
             <span className="text-plasma font-bold">COORD:</span>
             <span className="text-white font-semibold">44.91°N 128.4°E</span>
           </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 bg-void-900/80 px-2.5 py-1 rounded-lg border border-white/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-ember animate-pulse" />
             <span className="text-plasma font-bold">GRAVITY:</span>
             <span className="text-white font-semibold">0.88G</span>
           </div>
-          <div className="col-span-2 sm:col-span-1 flex items-center gap-1.5 sm:gap-2">
+          <div className="col-span-2 sm:col-span-1 flex items-center gap-1.5 sm:gap-2 bg-void-900/80 px-2.5 py-1 rounded-lg border border-white/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-plasma font-bold">ATMOSPHERE:</span>
             <span className="text-white font-semibold">O₂ 24% • Xe 4% • N₂ 72%</span>
           </div>
           <div className="col-span-2 sm:col-span-1 flex items-center justify-between sm:justify-start gap-2">
             <button
               onClick={toggleHeroAudio}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[9px] sm:text-[10px] font-mono font-bold transition-all shadow-md backdrop-blur-md ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[9px] sm:text-[10px] font-mono font-bold transition-all shadow-md backdrop-blur-md ${
                 isMuted
-                  ? 'bg-void-900/80 border-white/15 text-void-300 hover:text-ember hover:border-ember/40'
-                  : 'bg-void-900/90 border-cyanGlow/50 text-cyanGlow shadow-cyanGlow/20'
+                  ? 'bg-void-900/90 border-white/15 text-void-300 hover:text-ember hover:border-ember/40'
+                  : 'bg-void-900/90 border-cyanGlow/50 text-cyanGlow shadow-[0_0_15px_rgba(0,240,255,0.25)]'
               }`}
               aria-label="Toggle Planetary Ambient Audio"
             >
               {isMuted ? (
                 <>
                   <VolumeX className="w-3 h-3 text-ember" />
-                  <span>AMBIENT SOUND: OFF</span>
+                  <span>AMBIENT AUDIO: MUTED</span>
                 </>
               ) : (
                 <>
                   <Volume2 className="w-3 h-3 text-cyanGlow animate-pulse" />
-                  <span>AMBIENT SOUND: LIVE</span>
+                  <span>AMBIENT AUDIO: ACTIVE</span>
                 </>
               )}
             </button>

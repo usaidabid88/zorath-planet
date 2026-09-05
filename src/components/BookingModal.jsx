@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
-import { X, Send, CheckCircle2, Loader2, ShieldCheck, Calendar, User, Mail, Phone, MapPin, Rocket } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Send, CheckCircle2, Loader2, ShieldCheck, Calendar, User, Mail, Phone, Rocket, Sparkles } from 'lucide-react';
 
-export default function BookingModal({ isOpen, onClose }) {
+export default function BookingModal({ isOpen, onClose, initialLoadout = null }) {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    expedition: 'pioneer',
+    expedition: initialLoadout?.tier ? 'custom' : 'pioneer',
     preferredDate: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    if (initialLoadout) {
+      setFormData((prev) => ({
+        ...prev,
+        expedition: 'custom',
+        message: `Custom Configured Mission:
+- Trajectory: ${initialLoadout.trajectory?.name || initialLoadout.tier} (${initialLoadout.trajectory?.durationDays || 'N/A'}d transit)
+- Exo-Suit: ${initialLoadout.suit?.armor?.name || 'Standard'} / ${initialLoadout.suit?.rebreather?.name || 'Standard'} / ${initialLoadout.suit?.mobility?.name || 'Standard'} / ${initialLoadout.suit?.sensors?.name || 'Standard'}
+- Investment: $${initialLoadout.totalCost?.toLocaleString() || 'N/A'}`,
+      }));
+    }
+  }, [initialLoadout]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,6 +102,25 @@ export default function BookingModal({ isOpen, onClose }) {
               <p className="text-void-300 text-xs sm:text-sm font-light">
                 Complete the clearance manifest below to reserve your place on the next orbital launch window.
               </p>
+
+              {initialLoadout && (
+                <div className="mt-4 p-3.5 rounded-xl bg-void-950 border border-plasma/40 flex items-center justify-between gap-3 text-xs font-mono">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-ember shrink-0" />
+                    <div>
+                      <span className="text-white font-bold block">
+                        {initialLoadout.trajectory?.name || 'Custom Mission'} Loadout Attached
+                      </span>
+                      <span className="text-[10px] text-void-400">
+                        {initialLoadout.suit?.armor?.name || 'Armor'} • {initialLoadout.suit?.mobility?.name || 'Mobility'}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-sm font-sans font-black text-ember shrink-0">
+                    ${initialLoadout.totalCost?.toLocaleString()}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Form */}
@@ -160,6 +192,11 @@ export default function BookingModal({ isOpen, onClose }) {
                     required
                     className="w-full bg-void-800 border border-white/10 rounded-xl py-2.5 sm:py-3 px-3.5 text-white text-base sm:text-sm focus:border-plasma/50 focus:outline-none focus:ring-1 focus:ring-plasma/30 transition-all appearance-none cursor-pointer"
                   >
+                    {initialLoadout && (
+                      <option value="custom">
+                        Custom Loadout: {initialLoadout.trajectory?.name || 'Configured'} (${initialLoadout.totalCost?.toLocaleString()})
+                      </option>
+                    )}
                     <option value="recon">Orbital Reconnaissance (4,800 Cr)</option>
                     <option value="pioneer">Planetary Pioneer (14,500 Cr)</option>
                     <option value="vanguard">Ministry Vanguard (36,000 Cr)</option>
