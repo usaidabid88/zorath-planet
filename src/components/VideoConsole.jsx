@@ -7,8 +7,8 @@ const videoChannels = [
     channel: 'CH 01',
     title: 'Geological Canyons & Basalt Spire Uplink',
     category: 'GEOLOGY',
-    src: '/b.mp4',
-    altSrc: '/intro.mp4',
+    src: '/intro.mp4',
+    altSrc: '/b.mp4',
     poster: '/m.jpg',
     duration: '01:24',
     description: 'Direct optical telemetry from drone probe scanning the deep crystalline tectonic ravines.',
@@ -18,8 +18,8 @@ const videoChannels = [
     channel: 'CH 02',
     title: 'Primeval Fauna & Bioluminescent Jungle',
     category: 'ECOSYSTEM',
-    src: '/a.mp4',
-    altSrc: '/eco.mp4',
+    src: '/eco.mp4',
+    altSrc: '/a.mp4',
     poster: '/i.jpg',
     duration: '02:08',
     description: 'Nocturnal footage of Saurian megafauna traversing the Lumina Prime phosphorescent canopy.',
@@ -29,8 +29,8 @@ const videoChannels = [
     channel: 'CH 03',
     title: 'Plasma Lightning Superstorms & Thermal Gale',
     category: 'CLIMATE',
-    src: '/wea.mp4',
-    altSrc: '/d.mp4',
+    src: '/d.mp4',
+    altSrc: '/wea.mp4',
     poster: '/m.jpg',
     duration: '01:45',
     description: 'High-speed capture of ionized electrical fronts raging across the northern hemisphere.',
@@ -40,8 +40,8 @@ const videoChannels = [
     channel: 'CH 04',
     title: 'Expedition Rover Overland Route Testing',
     category: 'EXPEDITIONS',
-    src: '/c.mp4',
-    altSrc: '/tour.mp4',
+    src: '/tour.mp4',
+    altSrc: '/c.mp4',
     poster: '/i.jpg',
     duration: '01:50',
     description: 'Field run of the Heavy Hover Transport traversing rough crystalline desert dunes.',
@@ -51,8 +51,8 @@ const videoChannels = [
     channel: 'CH 05',
     title: 'Planetary Documentary & Ministry Briefing',
     category: 'DOCUMENTARY',
-    src: '/e.mp4',
-    altSrc: '/home.mp4',
+    src: '/home.mp4',
+    altSrc: '/e.mp4',
     poster: '/m.jpg',
     duration: '03:12',
     description: 'Official planetary archive compiled by Cadet College Sanghar Ministry Research Team.',
@@ -65,6 +65,29 @@ export default function VideoConsole() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
+
+  // Sync video play/pause, volume, and mute status across channel switches
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = isMuted;
+    if (isPlaying) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // If browser blocks unmuted play on channel switch, fallback to muted autoplay
+          if (!isMuted) {
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
+          }
+        });
+      }
+    } else {
+      video.pause();
+    }
+  }, [selectedChannel, isPlaying, isMuted]);
 
   // Performance IntersectionObserver: Auto-pause off-screen video
   useEffect(() => {
@@ -94,13 +117,10 @@ export default function VideoConsole() {
   const handleChannelSwitch = (ch) => {
     setSelectedChannel(ch);
     setIsPlaying(true);
-    if (videoRef.current) {
-      videoRef.current.load();
-      videoRef.current.play().catch(() => setIsPlaying(false));
-    }
   };
 
-  const togglePlay = () => {
+  const togglePlay = (e) => {
+    if (e) e.stopPropagation();
     if (!videoRef.current) return;
     if (isPlaying) {
       videoRef.current.pause();
@@ -111,10 +131,21 @@ export default function VideoConsole() {
     }
   };
 
-  const toggleMute = () => {
+  const toggleMute = (e) => {
+    if (e) e.stopPropagation();
     if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+    const nextMuted = !isMuted;
+    videoRef.current.muted = nextMuted;
+    if (!nextMuted) {
+      videoRef.current.volume = 1.0;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn('Audio playback restriction:', err);
+        });
+      }
+    }
+    setIsMuted(nextMuted);
   };
 
   return (
@@ -136,7 +167,7 @@ export default function VideoConsole() {
             </h2>
           </div>
           <p className="text-void-300 text-xs sm:text-sm max-w-md font-light">
-            Switch across 5 dedicated orbital camera channels capturing real footage of Zorath's geology, biology, and atmospheric anomalies.
+            Switch across 5 dedicated orbital camera channels capturing real footage of Zorath's geology, biology, and atmospheric anomalies with synchronized audio.
           </p>
         </div>
 
@@ -148,6 +179,8 @@ export default function VideoConsole() {
               {/* Video Element */}
               <video
                 ref={videoRef}
+                key={selectedChannel.id}
+                src={selectedChannel.src}
                 autoPlay
                 loop
                 muted={isMuted}
@@ -155,14 +188,24 @@ export default function VideoConsole() {
                 preload="metadata"
                 poster={selectedChannel.poster}
                 className="w-full h-full object-cover filter contrast-[1.08]"
-              >
-                <source src={selectedChannel.src} type="video/mp4" />
-                <source src={selectedChannel.altSrc} type="video/mp4" />
-              </video>
+              />
+
+              {/* Tap to Unmute Overlay Prompt (Shown when muted on mobile/desktop) */}
+              {isMuted && (
+                <button
+                  onClick={toggleMute}
+                  className="pointer-events-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-void-950/90 hover:bg-void-900 border border-ember/50 hover:border-ember text-white px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-[0_0_30px_rgba(255,87,34,0.45)] flex items-center gap-2 backdrop-blur-md transition-all group hover:scale-105 active:scale-95 z-20"
+                >
+                  <VolumeX className="w-4 h-4 text-ember animate-pulse" />
+                  <span className="text-[11px] sm:text-sm font-sans font-medium text-void-100">
+                    Tap to Unmute Audio
+                  </span>
+                </button>
+              )}
 
               {/* Sci-Fi HUD Overlay */}
-              <div className="absolute inset-0 pointer-events-none p-3 sm:p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50">
-                {/* Top HUD Stats */}
+              <div className="absolute inset-0 pointer-events-none p-3 sm:p-6 flex flex-col justify-between bg-gradient-to-t from-void-950/95 via-transparent to-void-950/50 z-10">
+                {/* Top HUD Stats & Audio Mode Trigger */}
                 <div className="flex items-center justify-between font-mono text-[9px] sm:text-[11px] text-white">
                   <div className="flex items-center gap-1.5 sm:gap-2 bg-void-900/80 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15 shadow-md">
                     <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-ping" />
@@ -170,10 +213,34 @@ export default function VideoConsole() {
                     <span className="text-void-400">|</span>
                     <span>{selectedChannel.category}</span>
                   </div>
-                  <div className="hidden sm:flex items-center gap-2 bg-void-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 text-cyanGlow shadow-md">
-                    <Zap className="w-3 h-3 text-cyanGlow" />
-                    <span>4K-UHD • 60 FPS • INTERSTELLAR UPLINK</span>
-                  </div>
+
+                  {/* Audio Status Pill Button */}
+                  <button
+                    onClick={toggleMute}
+                    className={`pointer-events-auto flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border text-[9px] sm:text-[10px] font-mono font-bold transition-all shadow-md backdrop-blur-md ${
+                      isMuted
+                        ? 'bg-void-900/90 border-ember/50 text-ember hover:border-ember shadow-ember/20 active:scale-95'
+                        : 'bg-void-900/90 border-cyanGlow/50 text-cyanGlow hover:border-cyanGlow shadow-cyanGlow/20'
+                    }`}
+                    aria-label="Toggle Sound"
+                  >
+                    {isMuted ? (
+                      <>
+                        <VolumeX className="w-3 h-3 text-ember" />
+                        <span>AUDIO MUTED</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 className="w-3 h-3 text-cyanGlow" />
+                        <span>AUDIO ACTIVE</span>
+                        <span className="flex items-end gap-0.5 h-2.5 ml-0.5">
+                          <span className="w-0.5 h-2.5 bg-cyanGlow animate-[pulse_0.6s_ease-in-out_infinite]" />
+                          <span className="w-0.5 h-1.5 bg-cyanGlow animate-[pulse_0.8s_ease-in-out_infinite_0.2s]" />
+                          <span className="w-0.5 h-2 bg-cyanGlow animate-[pulse_0.5s_ease-in-out_infinite_0.4s]" />
+                        </span>
+                      </>
+                    )}
+                  </button>
                 </div>
 
                 {/* Bottom HUD Info & Integrated Touch Controls */}
@@ -198,7 +265,9 @@ export default function VideoConsole() {
                     </button>
                     <button
                       onClick={toggleMute}
-                      className="p-1 sm:p-2 text-white hover:text-cyanGlow rounded-full hover:bg-white/10 transition-colors"
+                      className={`p-1 sm:p-2 rounded-full transition-colors ${
+                        isMuted ? 'text-ember hover:bg-ember/20' : 'text-cyanGlow hover:bg-cyanGlow/20'
+                      }`}
                       aria-label="Mute/Unmute"
                     >
                       {isMuted ? <VolumeX className="w-3 h-3 sm:w-4 sm:h-4" /> : <Volume2 className="w-3 h-3 sm:w-4 sm:h-4" />}

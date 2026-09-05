@@ -1,11 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ArrowRight, Radio, Orbit, ShieldCheck, Sparkles, Compass } from 'lucide-react';
+import { ArrowRight, Radio, Orbit, ShieldCheck, Sparkles, Compass, Volume2, VolumeX } from 'lucide-react';
 
 export default function Hero({ onOpenBooking }) {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
   const videoRef = useRef(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleHeroAudio = (e) => {
+    if (e) e.stopPropagation();
+    if (!videoRef.current) return;
+    const nextMuted = !isMuted;
+    videoRef.current.muted = nextMuted;
+    if (!nextMuted) {
+      videoRef.current.volume = 1.0;
+      videoRef.current.play().catch(() => {});
+    }
+    setIsMuted(nextMuted);
+  };
 
   useEffect(() => {
     // GSAP entrance animations
@@ -86,14 +99,14 @@ export default function Hero({ onOpenBooking }) {
           ref={videoRef}
           autoPlay
           loop
-          muted
+          muted={isMuted}
           playsInline
           preload="metadata"
           poster="/m.jpg"
           className="w-full h-full object-cover scale-105 filter brightness-[0.75] contrast-[1.12]"
         >
-          <source src="/e.mp4" type="video/mp4" />
           <source src="/home.mp4" type="video/mp4" />
+          <source src="/e.mp4" type="video/mp4" />
         </video>
 
         {/* Ambient Dark Gradient Overlays */}
@@ -181,9 +194,28 @@ export default function Hero({ onOpenBooking }) {
             <span className="text-plasma font-bold">ATMOSPHERE:</span>
             <span className="text-white font-semibold">O₂ 24% • Xe 4% • N₂ 72%</span>
           </div>
-          <div className="col-span-2 sm:col-span-1 flex items-center gap-2 text-cyanGlow">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyanGlow animate-ping" />
-            <span>ORBITAL RECEPTOR SYNCHRONIZED</span>
+          <div className="col-span-2 sm:col-span-1 flex items-center justify-between sm:justify-start gap-2">
+            <button
+              onClick={toggleHeroAudio}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[9px] sm:text-[10px] font-mono font-bold transition-all shadow-md backdrop-blur-md ${
+                isMuted
+                  ? 'bg-void-900/80 border-white/15 text-void-300 hover:text-ember hover:border-ember/40'
+                  : 'bg-void-900/90 border-cyanGlow/50 text-cyanGlow shadow-cyanGlow/20'
+              }`}
+              aria-label="Toggle Planetary Ambient Audio"
+            >
+              {isMuted ? (
+                <>
+                  <VolumeX className="w-3 h-3 text-ember" />
+                  <span>AMBIENT SOUND: OFF</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-3 h-3 text-cyanGlow animate-pulse" />
+                  <span>AMBIENT SOUND: LIVE</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
       </div>
