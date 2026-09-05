@@ -78,10 +78,10 @@ export default function Hero({ onOpenBooking }) {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-[100dvh] pt-20 sm:pt-24 pb-6 sm:pb-8 overflow-hidden flex flex-col justify-center bg-void"
+      className="relative w-full max-w-full min-h-[100dvh] pt-20 sm:pt-24 pb-6 sm:pb-8 overflow-hidden flex flex-col justify-center bg-void"
     >
       {/* Background Video & Fallback Image with Smooth Vignette */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
           ref={videoRef}
           autoPlay

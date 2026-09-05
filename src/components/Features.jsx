@@ -344,9 +344,9 @@ function CursorProtocolScheduler() {
    ===================================================================== */
 export default function Features() {
   return (
-    <div className="relative bg-void-950">
+    <div className="relative bg-void-950 w-full max-w-full overflow-hidden">
       {/* SECTION 1: GEOLOGY */}
-      <section id="geology" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10">
+      <section id="geology" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10 w-full max-w-full overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Description */}
@@ -393,7 +393,7 @@ export default function Features() {
       </section>
 
       {/* SECTION 2: ECOSYSTEM */}
-      <section id="ecosystem" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10 bg-void-900/40">
+      <section id="ecosystem" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10 bg-void-900/40 w-full max-w-full overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Interactive Typewriter */}
@@ -440,7 +440,7 @@ export default function Features() {
       </section>
 
       {/* SECTION 3: CLIMATE */}
-      <section id="climate" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10">
+      <section id="climate" className="relative py-14 sm:py-24 md:py-32 px-4 sm:px-10 md:px-16 border-t border-white/10 w-full max-w-full overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Description */}

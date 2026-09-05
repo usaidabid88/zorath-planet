@@ -41,7 +41,7 @@ export default function Philosophy() {
     <section
       id="philosophy"
       ref={containerRef}
-      className="relative w-full py-16 sm:py-28 md:py-36 px-4 sm:px-10 md:px-16 bg-void-950 border-y border-white/10 overflow-hidden"
+      className="relative w-full max-w-full py-16 sm:py-28 md:py-36 px-4 sm:px-10 md:px-16 bg-void-950 border-y border-white/10 overflow-hidden"
     >
       {/* Parallax Low-Opacity Sci-Fi Texture */}
       <div className="absolute inset-0 pointer-events-none opacity-20">

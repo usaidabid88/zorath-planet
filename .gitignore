@@ -1,6 +1,7 @@
 # Local configs & AI
 .claude
 .vercel
+graphify-out
 .env
 .env*.local
 

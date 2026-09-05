@@ -9,7 +9,7 @@ export default function CustomCursor() {
 
   useEffect(() => {
     // Only enable on fine pointer devices with desktop width
-    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768) {
+    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024) {
       return;
     }
 

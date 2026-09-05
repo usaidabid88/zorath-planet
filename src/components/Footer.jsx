@@ -3,9 +3,9 @@ import { Compass, Mail, Phone, MapPin, Radio, Github, Twitter, Instagram, Extern
 
 export default function Footer() {
   return (
-    <footer className="relative bg-void-950 rounded-t-[2.5rem] sm:rounded-t-[4rem] border-t border-white/10 overflow-hidden">
+    <footer className="relative bg-void-950 rounded-t-[2.5rem] sm:rounded-t-[4rem] border-t border-white/10 overflow-hidden w-full max-w-full">
       {/* Top Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-plasma/50 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-full h-px bg-gradient-to-r from-transparent via-plasma/50 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-10 md:px-16 pt-12 sm:pt-20 pb-8 sm:pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-8">

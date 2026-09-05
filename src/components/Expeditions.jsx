@@ -63,9 +63,9 @@ const tiers = [
 
 export default function Expeditions({ onOpenBooking }) {
   return (
-    <section id="expeditions" className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-950">
+    <section id="expeditions" className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-950 w-full max-w-full overflow-hidden">
       {/* Ambience glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-ember/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] max-w-[100vw] h-[600px] bg-ember/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}

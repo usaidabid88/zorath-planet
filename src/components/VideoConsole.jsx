@@ -121,9 +121,9 @@ export default function VideoConsole() {
     <section
       id="archives"
       ref={sectionRef}
-      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-900 border-t border-white/10"
+      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-900 border-t border-white/10 w-full max-w-full overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4 sm:gap-6">
           <div>
@@ -141,9 +141,9 @@ export default function VideoConsole() {
         </div>
 
         {/* Video Player & Channel Selector Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start w-full max-w-full">
           {/* Main Video Viewport (8 Columns) */}
-          <div className="lg:col-span-8 flex flex-col gap-4">
+          <div className="lg:col-span-8 flex flex-col gap-4 w-full max-w-full min-w-0 overflow-hidden">
             <div className="relative w-full aspect-video rounded-2xl sm:rounded-3rem overflow-hidden bg-void-950 border border-plasma/40 shadow-2xl shadow-void-950 group video-player-box">
               {/* Video Element */}
               <video
@@ -209,12 +209,12 @@ export default function VideoConsole() {
           </div>
 
           {/* Channel Selector Sidebar (4 Columns on desktop, horizontal swiper on mobile) */}
-          <div className="lg:col-span-4 flex flex-col gap-2.5 sm:gap-3 w-full">
+          <div className="lg:col-span-4 flex flex-col gap-2.5 sm:gap-3 w-full max-w-full min-w-0 overflow-hidden">
             <span className="font-mono text-[10px] sm:text-xs text-void-300 uppercase tracking-wider mb-0.5 flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-plasma" />
               Select Orbital Relay Feed:
             </span>
-            <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 gap-2.5 sm:gap-3 snap-x [-webkit-overflow-scrolling:touch]">
+            <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible w-full max-w-full pb-2 lg:pb-0 gap-2.5 sm:gap-3 snap-x [-webkit-overflow-scrolling:touch]">
               {videoChannels.map((ch) => {
                 const isCurrent = selectedChannel.id === ch.id;
                 return (

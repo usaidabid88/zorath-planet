@@ -17,7 +17,7 @@ export default function App() {
   const closeBooking = () => setBookingOpen(false);
 
   return (
-    <div className="relative min-h-screen bg-void text-ghost antialiased selection:bg-ember selection:text-white">
+    <div className="relative w-full max-w-full min-h-screen bg-void text-ghost antialiased selection:bg-ember selection:text-white overflow-x-hidden">
       {/* Interactive Custom Cursor & Spotlight */}
       <CustomCursor />
 
@@ -25,7 +25,7 @@ export default function App() {
       <Navbar onOpenBooking={openBooking} />
 
       {/* Main Content Sections */}
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         <Hero onOpenBooking={openBooking} />
         <Features />
         <Philosophy />

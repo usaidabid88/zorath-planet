@@ -37,9 +37,9 @@ export default function Navbar({ onOpenBooking }) {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-2.5 sm:px-4 pt-2.5 sm:pt-4 pointer-events-none transition-all duration-300">
+      <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-2 sm:px-4 pt-2 sm:pt-4 pointer-events-none transition-all duration-300 w-full max-w-full">
         <nav
-          className={`pointer-events-auto flex items-center justify-between gap-2 sm:gap-6 px-3 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
+          className={`pointer-events-auto flex items-center justify-between gap-1.5 sm:gap-6 px-2.5 sm:px-6 py-1.5 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
             scrolled
               ? 'bg-[#0A0C16]/90 backdrop-blur-2xl border border-plasma/30 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.9),0_0_20px_0_rgba(123,97,255,0.15)] text-ghost'
               : 'bg-[#07080F]/60 backdrop-blur-xl border border-white/10 text-ghost/90'

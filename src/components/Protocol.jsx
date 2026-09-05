@@ -210,9 +210,9 @@ export default function Protocol() {
     <section
       id="protocol"
       ref={containerRef}
-      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-950"
+      className="relative py-14 sm:py-24 md:py-28 px-4 sm:px-10 md:px-16 bg-void-950 w-full max-w-full overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-20">
           <span className="font-mono text-[10px] sm:text-xs tracking-widest text-plasma uppercase bg-plasma/10 border border-plasma/30 px-3 py-1 rounded-full">
@@ -227,12 +227,12 @@ export default function Protocol() {
         </div>
 
         {/* Stacking Cards Container */}
-        <div className="flex flex-col gap-8 sm:gap-12 md:gap-16">
+        <div className="flex flex-col gap-8 sm:gap-12 md:gap-16 w-full">
           {protocolSteps.map((step, idx) => (
             <div
               key={step.step}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`sticky top-16 sm:top-24 md:top-28 rounded-2xl sm:rounded-3rem p-4 sm:p-8 md:p-12 border ${step.theme} backdrop-blur-2xl shadow-2xl transition-all duration-300`}
+              className={`sticky top-16 sm:top-24 md:top-28 rounded-2xl sm:rounded-3rem p-4 sm:p-8 md:p-12 border ${step.theme} backdrop-blur-2xl shadow-2xl transition-all duration-300 w-full max-w-full overflow-hidden`}
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 {/* Text Description */}
