@@ -46,8 +46,10 @@ export default function Philosophy() {
       {/* Parallax Low-Opacity Sci-Fi Texture */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <img
-          src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000&q=80"
+          src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=70"
           alt="Bioluminescent Texture"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover filter contrast-125 brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/85 to-void-950" />

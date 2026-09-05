@@ -183,20 +183,17 @@ export default function Protocol() {
         if (index < cards.length - 1) {
           const nextCard = cards[index + 1];
 
-          ScrollTrigger.create({
-            trigger: nextCard,
-            start: 'top 80%',
-            end: 'top 20%',
-            scrub: true,
-            onUpdate: (self) => {
-              const progress = self.progress;
-              gsap.to(card, {
-                scale: 1 - progress * (isMobile ? 0.04 : 0.1),
-                opacity: 1 - progress * 0.45,
-                ...(isMobile ? {} : { filter: `blur(${progress * 10}px)` }),
-                ease: 'none',
-                duration: 0.1,
-              });
+          gsap.to(card, {
+            scale: 1 - (isMobile ? 0.04 : 0.1),
+            opacity: 0.55,
+            ...(isMobile ? {} : { filter: 'blur(10px)' }),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: nextCard,
+              start: 'top 80%',
+              end: 'top 20%',
+              scrub: 0.5,
+              invalidateOnRefresh: true,
             },
           });
         }

@@ -43,6 +43,24 @@ const initialShufflerCards = [
 function DiagnosticShuffler() {
   const [cards, setCards] = useState(initialShufflerCards);
   const [isPaused, setIsPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const shuffleNext = () => {
     setCards((prev) => {
@@ -54,13 +72,14 @@ function DiagnosticShuffler() {
   };
 
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(shuffleNext, 3400);
+    if (isPaused || !isVisible) return;
+    const interval = setInterval(shuffleNext, 3800);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, isVisible]);
 
   return (
     <div
+      ref={containerRef}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       className="relative h-72 w-full flex items-center justify-center select-none"
@@ -134,8 +153,27 @@ function TelemetryTypewriter() {
   const [displayedText, setDisplayedText] = useState('');
   const [charIndex, setCharIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
 
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     const currentMessage = bioFeedMessages[msgIndex];
 
     if (isTyping) {
@@ -143,7 +181,7 @@ function TelemetryTypewriter() {
         const timeout = setTimeout(() => {
           setDisplayedText(currentMessage.slice(0, charIndex + 1));
           setCharIndex((prev) => prev + 1);
-        }, 32);
+        }, 40);
         return () => clearTimeout(timeout);
       } else {
         const pauseTimeout = setTimeout(() => {
@@ -160,10 +198,10 @@ function TelemetryTypewriter() {
       }, 400);
       return () => clearTimeout(resetTimeout);
     }
-  }, [charIndex, isTyping, msgIndex]);
+  }, [charIndex, isTyping, msgIndex, isVisible]);
 
   return (
-    <div className="w-full h-auto min-h-[270px] sm:h-72 rounded-2xl sm:rounded-2rem bg-void-950/90 border border-white/10 p-4 sm:p-5 flex flex-col justify-between font-mono relative overflow-hidden interactive-card">
+    <div ref={containerRef} className="w-full h-auto min-h-[270px] sm:h-72 rounded-2xl sm:rounded-2rem bg-void-950/90 border border-white/10 p-4 sm:p-5 flex flex-col justify-between font-mono relative overflow-hidden interactive-card">
       {/* Background Matrix Grid Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(123,97,255,0.12)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none opacity-50" />
 
@@ -223,8 +261,27 @@ const daysOfWeek = [
 
 function CursorProtocolScheduler() {
   const [activeStep, setActiveStep] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
 
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     const timeline = [
       setTimeout(() => setActiveStep(1), 1200),
       setTimeout(() => setActiveStep(2), 1600),
@@ -234,7 +291,7 @@ function CursorProtocolScheduler() {
       setTimeout(() => setActiveStep(0), 5500),
     ];
     return () => timeline.forEach(clearTimeout);
-  }, [activeStep === 0]);
+  }, [activeStep === 0, isVisible]);
 
   const getCursorStyle = () => {
     if (activeStep === 0) {
@@ -256,7 +313,7 @@ function CursorProtocolScheduler() {
   };
 
   return (
-    <div className="w-full h-auto min-h-[280px] sm:h-72 rounded-2xl sm:rounded-2rem bg-void-950/90 border border-white/10 p-3.5 sm:p-5 flex flex-col justify-between relative overflow-hidden select-none interactive-card">
+    <div ref={containerRef} className="w-full h-auto min-h-[280px] sm:h-72 rounded-2xl sm:rounded-2rem bg-void-950/90 border border-white/10 p-3.5 sm:p-5 flex flex-col justify-between relative overflow-hidden select-none interactive-card">
       {/* Animated SVG Cursor */}
       <div
         style={getCursorStyle()}

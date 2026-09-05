@@ -88,9 +88,11 @@ export default function Hero({ onOpenBooking }) {
           loop
           muted
           playsInline
+          preload="metadata"
           poster="/m.jpg"
           className="w-full h-full object-cover scale-105 filter brightness-[0.75] contrast-[1.12]"
         >
+          <source src="/e.mp4" type="video/mp4" />
           <source src="/home.mp4" type="video/mp4" />
         </video>
 

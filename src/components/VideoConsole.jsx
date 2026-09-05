@@ -7,8 +7,8 @@ const videoChannels = [
     channel: 'CH 01',
     title: 'Geological Canyons & Basalt Spire Uplink',
     category: 'GEOLOGY',
-    src: '/intro.mp4',
-    altSrc: '/b.mp4',
+    src: '/b.mp4',
+    altSrc: '/intro.mp4',
     poster: '/m.jpg',
     duration: '01:24',
     description: 'Direct optical telemetry from drone probe scanning the deep crystalline tectonic ravines.',
@@ -18,8 +18,8 @@ const videoChannels = [
     channel: 'CH 02',
     title: 'Primeval Fauna & Bioluminescent Jungle',
     category: 'ECOSYSTEM',
-    src: '/eco.mp4',
-    altSrc: '/a.mp4',
+    src: '/a.mp4',
+    altSrc: '/eco.mp4',
     poster: '/i.jpg',
     duration: '02:08',
     description: 'Nocturnal footage of Saurian megafauna traversing the Lumina Prime phosphorescent canopy.',
@@ -29,8 +29,8 @@ const videoChannels = [
     channel: 'CH 03',
     title: 'Plasma Lightning Superstorms & Thermal Gale',
     category: 'CLIMATE',
-    src: '/d.mp4',
-    altSrc: '/wea.mp4',
+    src: '/wea.mp4',
+    altSrc: '/d.mp4',
     poster: '/m.jpg',
     duration: '01:45',
     description: 'High-speed capture of ionized electrical fronts raging across the northern hemisphere.',
@@ -40,8 +40,8 @@ const videoChannels = [
     channel: 'CH 04',
     title: 'Expedition Rover Overland Route Testing',
     category: 'EXPEDITIONS',
-    src: '/tour.mp4',
-    altSrc: '/c.mp4',
+    src: '/c.mp4',
+    altSrc: '/tour.mp4',
     poster: '/i.jpg',
     duration: '01:50',
     description: 'Field run of the Heavy Hover Transport traversing rough crystalline desert dunes.',
@@ -51,8 +51,8 @@ const videoChannels = [
     channel: 'CH 05',
     title: 'Planetary Documentary & Ministry Briefing',
     category: 'DOCUMENTARY',
-    src: '/home.mp4',
-    altSrc: '/e.mp4',
+    src: '/e.mp4',
+    altSrc: '/home.mp4',
     poster: '/m.jpg',
     duration: '03:12',
     description: 'Official planetary archive compiled by Cadet College Sanghar Ministry Research Team.',
@@ -152,6 +152,7 @@ export default function VideoConsole() {
                 loop
                 muted={isMuted}
                 playsInline
+                preload="metadata"
                 poster={selectedChannel.poster}
                 className="w-full h-full object-cover filter contrast-[1.08]"
               >
